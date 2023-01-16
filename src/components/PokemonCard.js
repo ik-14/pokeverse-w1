@@ -1,10 +1,11 @@
 import React from 'react';
 
-function PokemonCard({ url, name }) {
+function PokemonCard({ image, name }) {
 
   return (
     <div>
-        pokemon card
+      <h1>{name}</h1>
+      <img src={image}/>
     </div>
   );
 }
