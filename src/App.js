@@ -5,41 +5,41 @@ import { PokemonCard } from './components/PokemonCard';
 const LIMIT = 150;
 const pokeApi = `https://pokeapi.co/api/v2/pokemon/?limit=${LIMIT}`;
 
-
 function App() {
-
+  
   const [pokeData, setPokeData] = useState([])
   const [newData, setNewData] = useState([])
 
-  const getPokeData = async() => {
-    const res = await fetch(pokeApi)
-    const data = await res.json()
-    const results = data.results
-    setPokeData(results)
-  }
-
-  const mapPokeData = () => {
-    pokeData.forEach( async (currentItem) => {
-      const res = await fetch(currentItem.url)
-      const data = await res.json()
-      setNewData(currentData => [...currentData, data])
-    })
-  }
+  useEffect(() => {
+    fetch(pokeApi)
+    .then(res => res.json())
+    .then(data => setPokeData(data.results))
+  },[])
 
   useEffect(() => {
-    getPokeData()
-    mapPokeData()
-  }, [])
+    pokeData.forEach(currentItem => {
+      const url = currentItem.url
+      fetch(url)
+      .then(res => res.json())
+      .then(data => setNewData(currentData => [...currentData, data]))
+    })
+  }, [pokeData])
 
+  
 
   return (
     <div data-testid="app">
-      <Navigation />
-      { newData.map(pokemon => 
-        <PokemonCard 
-        name={pokemon.name}
-        image={pokemon.sprites.front_default}
-        />
+      { newData.map((pokemon, index) => {
+        const ability = pokemon.abilities
+        return (
+      <PokemonCard
+      key={index}
+      name={pokemon.name}
+      image={pokemon.sprites.front_default}
+      abilities={ability}
+      />
+      )}
+      
         )}
       <PokemonCard />
     </div>

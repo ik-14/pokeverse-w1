@@ -1,13 +1,18 @@
 import React from 'react';
 
-function PokemonCard({ image, name }) {
+function PokemonCard({ image, name, abilities }) {
 
-  return (
-    <div>
-      <h1>{name}</h1>
-      <img src={image}/>
-    </div>
-  );
-}
-
-export { PokemonCard };
+  console.log(abilities)
+  
+    return (
+      <div>
+        <h1>{name}</h1>
+        <img src={image} alt='poke pic'/>
+        {/* <h3>{abilities[0].ability}</h3> */}
+      </div>
+    );
+  }
+  
+  export { PokemonCard };
+  
+  
